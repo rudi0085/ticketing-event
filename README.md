@@ -156,16 +156,3 @@ npm run check:watch
 npm run build
 ```
 
----
-
-## 📜 Dokumen Kebutuhan Produk (PRD)
-
-Untuk mempelajari arsitektur alur data, spesifikasi skema database relasional, enum status pesanan, serta aturan bisnis lengkap, silakan merujuk ke dokumen [PRD.md](file:///Users/rudiwicaksono/File Rudi/Development/Other/ticketing/ticketing-app/PRD.md).
-
----
-
-## 🤝 Kontribusi & Standar Kode
-
-- Selalu gunakan sintaks **Svelte 5 Runes** (`$state`, `$derived`, `$props`, `{@render ...}`). Jangan gunakan sintaks Svelte 3/4 yang sudah *deprecated* (`export let`, `$:`, `<slot />`).
-- Semua fungsi database dan kredensial sensitif wajib diletakkan di `src/lib/server/` atau file `+page.server.ts`.
-- Pelajari panduan khusus agen di [AGENTS.md](file:///Users/rudiwicaksono/File Rudi/Development/Other/ticketing/ticketing-app/AGENTS.md).
