@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { TicketTierDetail } from '#lib/types';
-	import { Plus, Minus, Tag } from 'lucide-svelte';
-	import Badge from '../ui/Badge.svelte';
+	import { Plus, Minus } from 'lucide-svelte';
 
 	interface Props {
 		tier: TicketTierDetail;
@@ -23,54 +22,51 @@
 </script>
 
 <div
-	class="relative p-6 border-2 transition-all {quantity > 0
-		? 'bg-zinc-900 border-red-600 shadow-[6px_6px_0px_#dc2626]'
-		: 'bg-zinc-950 border-zinc-800 hover:border-zinc-700 shadow-[4px_4px_0px_#000]'}"
+	class="p-4 sm:p-5 rounded-lg border transition-colors {quantity > 0
+		? 'bg-zinc-900/90 border-zinc-600'
+		: 'bg-zinc-950 border-zinc-800/80 hover:border-zinc-700'}"
 >
-	<!-- Ticket Category Top Tag -->
 	<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-		<div class="space-y-2">
-			<div class="flex items-center gap-3">
-				<h3 class="text-xl font-black uppercase tracking-tight text-white">{tier.name}</h3>
+		<div class="space-y-1">
+			<div class="flex items-center gap-2.5">
+				<h3 class="text-base font-semibold text-white tracking-tight">{tier.name}</h3>
 				{#if isSoldOut}
-					<Badge variant="danger" rotate>OUT OF BLOOD // SOLD OUT</Badge>
-				{:else}
-					<span
-						class="px-2.5 py-0.5 text-[10px] font-mono uppercase bg-zinc-800 text-zinc-300 border border-zinc-700"
-					>
-						KUOTA: SISA {tier.availableQuota}
+					<span class="text-[10px] font-mono uppercase text-zinc-500 bg-zinc-900 px-2 py-0.5 rounded border border-zinc-800">
+						Habis
+					</span>
+				{:else if tier.availableQuota <= 25}
+					<span class="text-[10px] font-mono uppercase text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-900/50">
+						Sisa {tier.availableQuota}
 					</span>
 				{/if}
 			</div>
 
-			<p class="text-xs text-zinc-400 leading-relaxed max-w-md font-sans">
-				{tier.description || 'Akses masuk moshpit konser musik punk.'}
+			<p class="text-xs text-zinc-400 leading-normal max-w-md">
+				{tier.description || 'Akses masuk venue Sound From Tiger.'}
 			</p>
 
-			<div class="text-2xl font-black text-red-500 font-mono tracking-tight pt-1">
+			<div class="text-sm font-mono font-medium text-amber-400 pt-1">
 				{formatRupiah(tier.price)}
 			</div>
 		</div>
 
-		<!-- Brutalist Quantity Selector -->
-		<div class="flex items-center gap-3 self-end sm:self-center">
+		<!-- Clean Stepper Selector -->
+		<div class="self-end sm:self-center">
 			{#if isSoldOut}
-				<span class="text-xs font-mono font-bold uppercase text-red-600 bg-red-950/60 px-3 py-1 border border-red-900">
-					TIKET HABIS
-				</span>
+				<span class="text-xs font-mono text-zinc-500 uppercase">Habis</span>
 			{:else}
-				<div class="flex items-center bg-zinc-900 border-2 border-zinc-700 p-1 shadow-[2px_2px_0px_#000]">
+				<div class="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 rounded p-1">
 					<button
 						type="button"
 						onclick={() => onUpdateQuantity(-1)}
 						disabled={quantity <= 0}
-						class="w-9 h-9 flex items-center justify-center bg-zinc-950 border border-zinc-800 hover:border-red-600 hover:text-white text-zinc-300 disabled:opacity-30 disabled:hover:border-zinc-800 transition font-bold cursor-pointer"
+						class="w-7 h-7 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded disabled:opacity-20 transition cursor-pointer"
 						aria-label="Kurangi tiket"
 					>
-						<Minus class="w-4 h-4" />
+						<Minus class="w-3.5 h-3.5" />
 					</button>
 
-					<span class="w-12 text-center font-mono font-black text-base text-white select-none">
+					<span class="w-8 text-center font-mono text-sm font-semibold text-white select-none">
 						{quantity}
 					</span>
 
@@ -78,10 +74,10 @@
 						type="button"
 						onclick={() => onUpdateQuantity(1)}
 						disabled={quantity >= Math.min(4, tier.availableQuota)}
-						class="w-9 h-9 flex items-center justify-center bg-zinc-950 border border-zinc-800 hover:border-red-600 hover:text-white text-zinc-300 disabled:opacity-30 disabled:hover:border-zinc-800 transition font-bold cursor-pointer"
+						class="w-7 h-7 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded disabled:opacity-20 transition cursor-pointer"
 						aria-label="Tambah tiket"
 					>
-						<Plus class="w-4 h-4" />
+						<Plus class="w-3.5 h-3.5" />
 					</button>
 				</div>
 			{/if}

@@ -2,6 +2,7 @@
 export { default as Badge } from './ui/Badge.svelte';
 export { default as Card } from './ui/Card.svelte';
 export { default as Modal } from './ui/Modal.svelte';
+export { default as EventFrame } from './ui/EventFrame.svelte';
 
 // Event & Checkout Components
 export { default as EventHero } from './event/EventHero.svelte';

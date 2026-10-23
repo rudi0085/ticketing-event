@@ -1,20 +1,20 @@
 import type { EventDetail, OrderDetail, TicketDetail } from '#lib/types';
 
-// Default seeded punk rock music event
+// Default seeded Sound From Tiger event
 export const mockEvent: EventDetail = {
-	id: 'evt-punk-fest-2026',
-	title: 'DISTORTION CHAOS 2026: UNDERGROUND PUNK FEST',
-	slug: 'distortion-chaos-2026',
+	id: 'evt-sound-from-tiger-2026',
+	title: 'SOUND FROM TIGER',
+	slug: 'sound-from-tiger-2026',
 	description:
-		'Festival musik punk rock, hardcore, dan alternative underground independen terbesar. Penuh energi distorsi gitar mentah, vokal lantang, dan arena moshpit tanpa kompromi.',
-	venueName: 'Gudang Sarinah Hall & Outdoor Moshpit, Jakarta',
-	eventDate: '2026-11-28T16:00:00+07:00',
+		'Konser musik rock & underground spektakuler. Menghadirkan panggung distorsi berenergi tinggi, dentuman suara membara, dan pengalaman live gig tak terlupakan.',
+	venueName: 'Tiger Arena & Concert Hall, Jakarta',
+	eventDate: '2026-11-28T17:00:00+07:00',
 	bannerUrl:
 		'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
 	tiers: [
 		{
 			id: 'tier-early-bird',
-			eventId: 'evt-punk-fest-2026',
+			eventId: 'evt-sound-from-tiger-2026',
 			name: 'Early Bird',
 			description: 'Akses masuk moshpit dengan harga promo rilisan awal. Kuota sangat terbatas.',
 			price: 75000,
@@ -25,9 +25,9 @@ export const mockEvent: EventDetail = {
 		},
 		{
 			id: 'tier-presale-regular',
-			eventId: 'evt-punk-fest-2026',
+			eventId: 'evt-sound-from-tiger-2026',
 			name: 'Presale Regular',
-			description: 'Akses seluruh stage arena konser + wristband kain resmi festival.',
+			description: 'Akses seluruh arena konser + wristband eksklusif Sound From Tiger.',
 			price: 125000,
 			quota: 150,
 			soldCount: 30,
@@ -36,10 +36,10 @@ export const mockEvent: EventDetail = {
 		},
 		{
 			id: 'tier-vip-all-access',
-			eventId: 'evt-punk-fest-2026',
+			eventId: 'evt-sound-from-tiger-2026',
 			name: 'VIP All-Access',
 			description:
-				'Akses backstage crew, barisan depan panggung, official band t-shirt, poster sablon bertanda tangan, & private lounge.',
+				'Akses barisan depan panggung, official t-shirt Sound From Tiger, poster koleksi bertanda tangan, & private lounge.',
 			price: 250000,
 			quota: 35,
 			soldCount: 15,

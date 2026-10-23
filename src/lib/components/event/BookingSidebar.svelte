@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { ArrowRight, Ticket, User, Mail, Phone } from 'lucide-svelte';
-
 	interface Props {
 		totalTickets: number;
 		totalPrice: number;
@@ -28,26 +26,21 @@
 	}
 </script>
 
-<div
-	class="bg-zinc-950 border-2 border-zinc-800 p-6 sticky top-24 shadow-[6px_6px_0px_#000] space-y-6"
->
-	<!-- Header -->
-	<div class="border-b-2 border-zinc-900 pb-4">
-		<span class="text-[10px] font-mono uppercase tracking-widest text-red-500 block mb-1">
-			// DATA PEMESANAN
-		</span>
-		<h3 class="text-xl font-black uppercase text-white tracking-tight flex items-center gap-2">
-			<Ticket class="w-5 h-5 text-red-500" />
-			<span>DATA DIRI PENONTON</span>
+<div class="bg-zinc-950 border border-zinc-800/80 rounded-lg p-5 sticky top-24 space-y-5">
+	<div class="border-b border-zinc-900 pb-3">
+		<h3 class="text-sm font-semibold text-white tracking-tight uppercase">
+			Detail Pemesan
 		</h3>
+		<p class="text-xs text-zinc-500 mt-0.5">
+			Tiket digital dan bukti pembayaran akan dikirim via email.
+		</p>
 	</div>
 
 	<!-- Input Fields -->
-	<div class="space-y-4 text-xs font-mono">
+	<div class="space-y-3.5 text-xs">
 		<div>
-			<label for="name" class="block uppercase font-bold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-				<User class="w-3.5 h-3.5 text-red-500" />
-				<span>Nama Lengkap <span class="text-red-500">*</span></span>
+			<label for="name" class="block font-medium text-zinc-300 mb-1">
+				Nama Lengkap
 			</label>
 			<input
 				id="name"
@@ -55,15 +48,14 @@
 				name="customerName"
 				required
 				bind:value={customerName}
-				placeholder="NAMA LENGKAP PENONTON"
-				class="w-full px-3.5 py-3 bg-zinc-900 border-2 border-zinc-800 focus:border-red-600 text-white placeholder-zinc-600 outline-none transition font-sans text-sm"
+				placeholder="Nama lengkap sesuai KTP"
+				class="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 focus:border-zinc-500 rounded text-white placeholder-zinc-500 outline-none transition text-sm"
 			/>
 		</div>
 
 		<div>
-			<label for="email" class="block uppercase font-bold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-				<Mail class="w-3.5 h-3.5 text-red-500" />
-				<span>Alamat Email <span class="text-red-500">*</span></span>
+			<label for="email" class="block font-medium text-zinc-300 mb-1">
+				Email
 			</label>
 			<input
 				id="email"
@@ -71,18 +63,14 @@
 				name="customerEmail"
 				required
 				bind:value={customerEmail}
-				placeholder="email@domain.com"
-				class="w-full px-3.5 py-3 bg-zinc-900 border-2 border-zinc-800 focus:border-red-600 text-white placeholder-zinc-600 outline-none transition font-sans text-sm"
+				placeholder="nama@email.com"
+				class="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 focus:border-zinc-500 rounded text-white placeholder-zinc-500 outline-none transition text-sm"
 			/>
-			<span class="text-[10px] text-zinc-500 mt-1 block">
-				E-Ticket QR Code resmi akan dikirim otomatis ke email ini.
-			</span>
 		</div>
 
 		<div>
-			<label for="phone" class="block uppercase font-bold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-				<Phone class="w-3.5 h-3.5 text-red-500" />
-				<span>Nomor WhatsApp / HP <span class="text-red-500">*</span></span>
+			<label for="phone" class="block font-medium text-zinc-300 mb-1">
+				Nomor WhatsApp / HP
 			</label>
 			<input
 				id="phone"
@@ -90,39 +78,38 @@
 				name="customerPhone"
 				required
 				bind:value={customerPhone}
-				placeholder="0812XXXXXXXX"
-				class="w-full px-3.5 py-3 bg-zinc-900 border-2 border-zinc-800 focus:border-red-600 text-white placeholder-zinc-600 outline-none transition font-sans text-sm"
+				placeholder="08xxxxxxxxxx"
+				class="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 focus:border-zinc-500 rounded text-white placeholder-zinc-500 outline-none transition text-sm"
 			/>
 		</div>
 	</div>
 
-	<!-- Order Calculation Box -->
-	<div class="border-t-2 border-zinc-900 pt-4 space-y-2 text-xs font-mono">
+	<!-- Price Summary -->
+	<div class="border-t border-zinc-900 pt-3 space-y-2 text-xs">
 		<div class="flex justify-between text-zinc-400">
-			<span>TIKET TERPILIH</span>
-			<span class="font-bold text-white">{totalTickets} TIKET</span>
+			<span>Jumlah Tiket</span>
+			<span class="font-medium text-white">{totalTickets}</span>
 		</div>
-		<div class="flex justify-between text-sm font-black text-white pt-2 border-t border-zinc-900">
-			<span class="uppercase">TOTAL HARGA</span>
-			<span class="text-red-500 text-xl font-mono">{formatRupiah(totalPrice)}</span>
+		<div class="flex justify-between items-baseline pt-1">
+			<span class="font-medium text-zinc-300">Total Pembayaran</span>
+			<span class="font-mono text-base font-semibold text-white">{formatRupiah(totalPrice)}</span>
 		</div>
 	</div>
 
-	<!-- Brutalist Checkout Action Button -->
+	<!-- Action Button -->
 	<button
 		type="submit"
 		disabled={totalTickets === 0 || isSubmitting}
-		class="w-full py-4 px-6 font-black uppercase text-sm font-mono tracking-wider text-white bg-red-600 hover:bg-red-500 border-2 border-red-500 shadow-[4px_4px_0px_#fff] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-red-600 disabled:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
+		class="w-full py-3 px-4 font-semibold text-xs tracking-wider uppercase text-zinc-950 bg-white hover:bg-zinc-200 rounded disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
 	>
 		{#if isSubmitting}
-			<span class="animate-pulse">MEMPROSES PESANAN...</span>
+			<span>Memproses...</span>
 		{:else}
-			<span>LANJUT KE PEMBAYARAN</span>
-			<ArrowRight class="w-4 h-4" />
+			<span>Lanjut ke Pembayaran</span>
 		{/if}
 	</button>
 
-	<p class="text-[10px] font-mono text-center text-zinc-500">
-		// PEMBAYARAN MANUAL VIA TRANSFER BANK LANGSUNG KE REKENING PANITIA
+	<p class="text-[11px] text-zinc-500 text-center">
+		Konfirmasi pembayaran dilakukan melalui transfer bank resmi.
 	</p>
 </div>

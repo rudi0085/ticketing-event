@@ -2,8 +2,8 @@
 	import type { PageProps } from './$types';
 	import { enhance } from '$app/forms';
 	import brandLogo from '#lib/assets/brand/logo.webp';
-	import { EventHero, TierCard, BookingSidebar } from '#lib/components';
-	import { Shield, Sparkles } from 'lucide-svelte';
+	import skyBanner from '#lib/assets/brand/sky.webp';
+	import { EventHero, TierCard, BookingSidebar, EventFrame } from '#lib/components';
 
 	let { data, form }: PageProps = $props();
 
@@ -54,72 +54,99 @@
 </script>
 
 <svelte:head>
-	<title>{data.event.title} - TIKET KONSER RESMI</title>
+	<title>{data.event.title} - Tiket Konser Resmi</title>
 </svelte:head>
 
-<div class="min-h-screen bg-black text-zinc-100 flex flex-col justify-between">
-	<!-- Navbar with Authentic Brand Logo -->
-	<header class="border-b-4 border-zinc-900 bg-zinc-950 sticky top-0 z-40">
-		<div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
-			<!-- Logo & Brand Name -->
-			<a href="/" class="flex items-center gap-3 group">
-				<div class="p-1 bg-zinc-900 border-2 border-zinc-700 shadow-[3px_3px_0px_#dc2626] group-hover:scale-105 transition">
-					<img src={brandLogo} alt="Logo" class="h-10 w-auto object-contain invert brightness-125" />
-				</div>
-				<div class="hidden sm:block">
-					<span class="font-black text-lg tracking-tighter uppercase text-white block leading-none">
-						PUNK DISPATCH
+<div class="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col justify-between selection:bg-zinc-800 selection:text-white relative">
+	<!-- Full Page Fixed Stage Frame (Edge-to-Edge Left, Right & Bottom Viewport Frame) -->
+	<EventFrame />
+
+	<!-- Top Sky Backdrop dari Poster (menyatukan Header & Hero) -->
+	<div
+		class="absolute inset-x-0 top-0 h-[560px] sm:h-[660px] z-0 pointer-events-none select-none overflow-hidden"
+		aria-hidden="true"
+	>
+		<img
+			src={skyBanner}
+			alt=""
+			class="w-full h-full object-cover object-top opacity-90"
+		/>
+		<!-- Gradasi gelap lembut agar teks di Header & Hero tetap tajam dan menyatu ke background bawah -->
+		<div
+			class="absolute inset-0 bg-gradient-to-b from-black/45 via-zinc-950/65 to-zinc-950"
+		></div>
+	</div>
+
+	<!-- Header dengan nuansa langit poster & aksen hangat -->
+	<header class="sticky top-0 z-20 border-b border-amber-500/20 bg-zinc-950/70 backdrop-blur-md overflow-hidden">
+		<!-- Lapisan langit tipis pada sticky header saat di-scroll -->
+		<div class="absolute inset-0 pointer-events-none select-none opacity-45" aria-hidden="true">
+			<img
+				src={skyBanner}
+				alt=""
+				class="w-full h-36 object-cover object-top"
+			/>
+			<div class="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-zinc-950/55 to-zinc-950/80"></div>
+			<div class="absolute inset-0 bg-gradient-to-b from-black/40 to-zinc-950/85"></div>
+		</div>
+
+		<div class="relative z-10 max-w-6xl mx-auto px-6 sm:px-12 md:px-16 lg:px-20 h-20 flex items-center justify-between">
+			<!-- Brand Identity -->
+			<a href="/" class="flex items-center gap-3.5 group">
+				<img
+					src={brandLogo}
+					alt="Sound From Tiger"
+					class="h-10 sm:h-12 w-auto object-contain"
+				/>
+				<div class="hidden sm:flex flex-col">
+					<span class="font-black text-sm sm:text-base tracking-tight text-white leading-none [text-shadow:0_2px_10px_rgb(0_0_0/0.9)]">
+						SOUND FROM TIGER
 					</span>
-					<span class="font-mono text-[9px] uppercase tracking-widest text-red-500">
-						// OFFICIAL TICKETING
+					<span class="text-[10px] font-mono uppercase tracking-widest text-amber-400/90 mt-1">
+						Official Live Concert 2026
 					</span>
 				</div>
 			</a>
 
-			<div class="flex items-center gap-4 text-xs font-mono font-bold uppercase">
+			<div class="flex items-center gap-3 sm:gap-5 text-xs font-mono">
 				<a
 					href="#tickets"
-					class="px-4 py-2 border-2 border-zinc-700 hover:border-red-600 hover:bg-zinc-900 text-zinc-300 hover:text-white transition hidden sm:inline-block shadow-[2px_2px_0px_#000]"
+					class="px-3.5 py-2 rounded bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 hover:text-amber-200 border border-amber-500/30 font-semibold tracking-wider transition"
 				>
-					PILIH TIKET
+					BELI TIKET
 				</a>
 				<a
 					href="/admin"
-					class="px-4 py-2 bg-zinc-900 hover:bg-red-600 text-zinc-200 hover:text-white border-2 border-zinc-700 hover:border-red-500 transition shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]"
+					class="text-zinc-200 hover:text-white bg-zinc-950/75 hover:bg-zinc-900 transition px-3 py-2 rounded border border-zinc-700/80 hover:border-zinc-500"
 				>
-					PORTAL CREW / ADMIN
+					PORTAL CREW
 				</a>
 			</div>
 		</div>
 	</header>
 
 	<!-- Main Content Area -->
-	<main class="flex-grow">
-		<!-- Modular Event Hero Component -->
+	<main class="flex-grow relative z-10">
+		<!-- Event Hero Component with Centerpiece Poster -->
 		<EventHero event={data.event} />
 
 		<!-- Ticket Selection & Booking Section -->
-		<section id="tickets" class="py-16 bg-zinc-950 border-b-4 border-zinc-900">
-			<div class="max-w-6xl mx-auto px-4">
-				<div class="max-w-2xl mb-12">
-					<span class="text-xs font-mono uppercase tracking-widest text-red-500 block mb-1">
-						// LINEUP & PASUKAN MOSHPIT
-					</span>
-					<h2 class="text-3xl sm:text-5xl font-black uppercase text-white tracking-tight">
-						PILIH KATEGORI TIKET
+		<section id="tickets" class="py-12 sm:py-16 border-b border-zinc-900/80">
+			<div class="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 lg:px-20">
+				<div class="mb-8 [text-shadow:0_2px_14px_rgb(0_0_0/0.95)]">
+					<h2 class="text-xl sm:text-2xl font-bold uppercase text-white tracking-tight">
+						Pilih Tiket
 					</h2>
-					<p class="text-zinc-400 mt-2 text-xs sm:text-sm font-sans">
-						Pilih tier tiket di bawah ini, lengkapi data penonton, lalu lakukan transfer bank manual.
-						E-Ticket resmi QR Code akan dikirimkan otomatis ke inbox email Anda.
+					<p class="text-zinc-300 mt-1 text-xs sm:text-sm">
+						Pilih tier tiket dan isi data diri pemesan. Maksimal 4 tiket per transaksi.
 					</p>
 				</div>
 
 				{#if form?.error}
 					<div
-						class="max-w-3xl mb-8 p-4 bg-red-950 border-2 border-red-600 text-red-200 text-xs font-mono uppercase flex items-center gap-3 shadow-[4px_4px_0px_#000]"
+						class="max-w-2xl mb-6 p-3 bg-red-950/40 border border-red-900/60 rounded text-red-200 text-xs font-mono"
 					>
-						<span class="w-3 h-3 bg-red-500 animate-ping"></span>
-						<span>ERROR: {form.error}</span>
+						{form.error}
 					</div>
 				{/if}
 
@@ -138,8 +165,8 @@
 					<!-- Hidden input passing items payload -->
 					<input type="hidden" name="items" value={itemsJsonPayload} />
 
-					<!-- Left Column: Modular Tier Cards -->
-					<div class="lg:col-span-7 space-y-4">
+					<!-- Left Column: Tier Cards -->
+					<div class="lg:col-span-7 space-y-3">
 						{#each data.event.tiers as tier (tier.id)}
 							<TierCard
 								{tier}
@@ -149,7 +176,7 @@
 						{/each}
 					</div>
 
-					<!-- Right Column: Modular Booking Sidebar -->
+					<!-- Right Column: Booking Sidebar -->
 					<div class="lg:col-span-5">
 						<BookingSidebar
 							{totalTickets}
@@ -165,13 +192,37 @@
 		</section>
 	</main>
 
-	<!-- Footer -->
-	<footer class="border-t-4 border-zinc-900 py-10 bg-black text-zinc-500 text-xs font-mono text-center">
-		<div class="max-w-6xl mx-auto px-4 space-y-3">
-			<img src={brandLogo} alt="Logo" class="h-10 w-auto mx-auto object-contain invert opacity-60" />
-			<p>&copy; {new Date().getFullYear()} {data.event.title}. INDEPENDENT UNDERGROUND GIG TICKETING.</p>
-			<p class="text-[10px] text-zinc-600">
-				BUILT WITH SVELTEKIT 3, SVELTE 5 RUNES, DRIZZLE ORM, AND RESEND DISPATCH.
+	<!-- Footer dengan layer efek gelap di atas ornamen agar seluruh tulisan terlihat jelas -->
+	<footer class="relative z-10 border-t border-zinc-800/80 pt-16 pb-36 sm:pb-48 md:pb-56 text-zinc-200 text-xs font-mono overflow-hidden">
+		<!-- Efek gelap tambahan khusus di area footer di atas gambar ornamen -->
+		<div
+			class="absolute inset-0 bg-gradient-to-t from-black/90 via-zinc-950/75 to-zinc-950/40 pointer-events-none"
+			aria-hidden="true"
+		></div>
+
+		<div class="relative z-10 max-w-6xl mx-auto px-6 sm:px-12 md:px-16 lg:px-20 text-center space-y-4 [text-shadow:0_2px_16px_rgb(0_0_0/1)]">
+			<img
+				src={brandLogo}
+				alt="Sound From Tiger"
+				class="h-10 sm:h-12 w-auto mx-auto object-contain"
+			/>
+			<div class="space-y-1">
+				<p class="font-extrabold text-sm sm:text-base tracking-tight uppercase text-white">
+					{data.event.title}
+				</p>
+				<p class="text-zinc-200 text-xs font-sans font-medium">
+					Official Underground Live Concert &bull; Jakarta 2026
+				</p>
+			</div>
+
+			<div class="flex items-center justify-center gap-6 text-xs text-zinc-200 font-mono pt-1">
+				<a href="#tickets" class="hover:text-amber-400 transition font-semibold">TIKET</a>
+				<span class="text-zinc-500">&bull;</span>
+				<a href="/admin" class="hover:text-amber-400 transition font-semibold">CREW PORTAL</a>
+			</div>
+
+			<p class="text-[11px] text-zinc-300 pt-1">
+				&copy; {new Date().getFullYear()} {data.event.title}. ALL RIGHTS RESERVED.
 			</p>
 		</div>
 	</footer>

@@ -18,18 +18,18 @@
 	}: Props = $props();
 
 	const variantStyles: Record<BadgeVariant, string> = {
-		default: 'bg-zinc-800 text-zinc-300 border-zinc-700',
-		success: 'bg-zinc-100 text-zinc-950 font-black border-white',
-		warning: 'bg-amber-300 text-zinc-950 font-bold border-amber-400',
-		info: 'bg-zinc-800 text-red-400 border-red-900',
-		danger: 'bg-red-600 text-white font-bold border-red-500',
-		crimson: 'bg-red-950 text-red-300 border-red-800'
+		default: 'bg-zinc-800/80 text-zinc-300 border-zinc-700/80',
+		success: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+		warning: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+		info: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
+		danger: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
+		crimson: 'bg-orange-500/10 text-orange-400 border-orange-500/30'
 	};
 </script>
 
 <span
-	class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-none text-[11px] font-mono uppercase tracking-wider border-2 shadow-[2px_2px_0px_#000] {rotate
-		? 'rotate-[-2deg]'
+	class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium tracking-wide border {rotate
+		? 'rotate-[-1deg]'
 		: ''} {variantStyles[variant]} {className}"
 >
 	{@render children?.()}
